@@ -17,6 +17,9 @@ __pycache__/
 # keep the .env.example but not the real .env
 .env
 
+# ── Processed data cache (committed to repo for public deployment) ───────────
+# data_cache/ is intentionally NOT ignored — the parquet goes to GitHub
+
 # ── Interview transcripts (qualitative raw data) ────────────────────────────
 interviews/
 interviews_2/

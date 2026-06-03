@@ -6,7 +6,7 @@ lxml>=5.1.0
 
 # ── Browser automation (Facebook login) ───────────────────────────────────
 playwright>=1.42.0       # after install run: .venv/bin/playwright install chromium
-playwright-stealth>=1.0.6  # hides navigator.webdriver so Facebook doesn't block headless logins
+playwright-stealth>=2.0.0  # v2 API: Stealth().apply_stealth_async(page)
 
 # ── Platform APIs ─────────────────────────────────────────────────────────
 google-api-python-client>=2.118.0   # YouTube Data API v3

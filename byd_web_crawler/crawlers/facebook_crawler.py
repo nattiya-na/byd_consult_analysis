@@ -85,7 +85,7 @@ def save_session_interactively() -> None:
 async def _interactive_login() -> None:
     try:
         from playwright.async_api import async_playwright
-        from playwright_stealth import stealth_async
+        from playwright_stealth import Stealth
     except ImportError:
         raise SystemExit(
             "Missing dependencies. Run:\n"
@@ -94,6 +94,7 @@ async def _interactive_login() -> None:
         )
 
     _SESSION_DIR.mkdir(exist_ok=True)
+    stealth = Stealth()
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=False)
         ctx = await browser.new_context(
@@ -102,7 +103,7 @@ async def _interactive_login() -> None:
             user_agent=_UA,
         )
         page = await ctx.new_page()
-        await stealth_async(page)
+        await stealth.apply_stealth_async(page)
         await page.goto(_FB, wait_until="domcontentloaded")
 
         print("\nA browser window has opened.")
@@ -177,7 +178,7 @@ class FacebookCrawler(BaseCrawler):
     async def _run(self) -> list[dict]:
         try:
             from playwright.async_api import async_playwright
-            from playwright_stealth import stealth_async
+            from playwright_stealth import Stealth
         except ImportError:
             raise SystemExit(
                 "Missing dependencies. Run:\n"
@@ -187,6 +188,7 @@ class FacebookCrawler(BaseCrawler):
 
         results = []
         _SESSION_DIR.mkdir(exist_ok=True)
+        stealth = Stealth()
 
         async with async_playwright() as pw:
             browser = await pw.chromium.launch(headless=self._headless)
@@ -197,7 +199,7 @@ class FacebookCrawler(BaseCrawler):
                 user_agent=_UA,
             )
             page = await context.new_page()
-            await stealth_async(page)
+            await stealth.apply_stealth_async(page)
 
             try:
                 # Verify session is still alive on mbasic

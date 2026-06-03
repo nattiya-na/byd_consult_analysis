@@ -1,6 +1,7 @@
 """Shared data-loading helpers for the Streamlit app."""
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -25,6 +26,9 @@ DATA_PATH = _ROOT / _CSV
 MOTOR_SHOW_PATH = _ROOT / "motor_show.csv"
 CHINA_PATH = _ROOT / "survey_china.xlsx"
 
+_CACHE_PARQUET = _ROOT / "data_cache" / "survey_processed.parquet"
+_CACHE_META = _ROOT / "data_cache" / "meta.json"
+
 LAYOUT_BASE = dict(
     font=dict(family=FONT_FAMILY, size=12, color="#111111"),
     template="plotly_white",
@@ -44,6 +48,23 @@ SOURCE_LABELS = {
 
 @st.cache_data
 def load_survey() -> tuple[pd.DataFrame, list, list, list]:
+    if _CACHE_PARQUET.exists() and _CACHE_META.exists():
+        df = pd.read_parquet(_CACHE_PARQUET, engine="pyarrow")
+        meta = json.loads(_CACHE_META.read_text())
+        age_order: list = meta["age_order"]
+        income_order: list = meta["income_order"]
+        dd_order: list = meta["dd_order"]
+        # Restore ordered categoricals that parquet round-trips as plain strings
+        for col, cats in [
+            ("age_range", age_order),
+            ("monthly_income", income_order),
+            ("daily_driving_distance", dd_order),
+        ]:
+            if col in df.columns:
+                df[col] = pd.Categorical(df[col], categories=cats, ordered=True)
+        return df, age_order, income_order, dd_order
+
+    # Fallback: load from raw survey files (local dev only)
     df_raw = load_data(DATA_PATH, MOTOR_SHOW_PATH, CHINA_PATH)
     df_clean, age_order, income_order, dd_order = clean_survey(df_raw)
     df_plot = _add_features(df_clean)
