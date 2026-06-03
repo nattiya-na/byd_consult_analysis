@@ -58,26 +58,64 @@ html, body, [class*="css"] {
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #1a1a1a 0%, #2a0a0d 100%) !important;
 }
+
+/* All sidebar text → light grey */
+[data-testid="stSidebar"],
 [data-testid="stSidebar"] * { color: #e5e5e5 !important; }
+
+/* Section heading */
 [data-testid="stSidebar"] h3,
 [data-testid="stSidebar"] .sidebar-section-label {
-    color: #d70c19 !important;
+    color: #ff6b7a !important;
     font-size: 0.75rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.1em !important;
     font-weight: 700 !important;
 }
+
+/* Widget labels above multiselects */
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p,
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] div,
+[data-testid="stSidebar"] label { color: #d4d4d4 !important; }
+
+/* Caption / respondent count */
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p { color: #9ca3af !important; }
+
+/* Multiselect/selectbox INPUT BOX in sidebar — dark theme
+   Higher specificity (3 attr selectors) beats global 2-attr rule that forces white. */
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="select"] > div,
+[data-testid="stSidebar"] [data-testid="stSelectbox"]   [data-baseweb="select"] > div {
+    background: rgba(255,255,255,0.10) !important;
+    border-color: rgba(255,255,255,0.25) !important;
+    color: #e5e5e5 !important;
+}
+
+/* Placeholder text inside select box */
+[data-testid="stSidebar"] [data-baseweb="select"] [data-baseweb="input"],
+[data-testid="stSidebar"] [data-baseweb="select"] input { color: #e5e5e5 !important; }
+
+/* Selected tag chips */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] span,
 [data-testid="stSidebar"] [data-baseweb="tag"] {
-    background-color: rgba(215,12,25,0.25) !important;
+    background-color: rgba(215,12,25,0.30) !important;
     color: #ffb3b8 !important;
 }
-[data-testid="stSidebarNav"] a span { color: #cccccc !important; }
-[data-testid="stSidebarNav"] a[aria-current="page"] span {
-    color: #d70c19 !important;
+
+/* Navigation links — multiple selectors for different Streamlit versions */
+[data-testid="stSidebarNav"] a span,
+[data-testid="stSidebarNav"] a p,
+[data-testid="stSidebarNavLink"] span,
+[data-testid="stSidebarNavLink"] p { color: #cccccc !important; }
+
+[data-testid="stSidebarNav"] a[aria-current="page"] span,
+[data-testid="stSidebarNav"] a[aria-current="page"] p,
+[data-testid="stSidebarNavLink"][aria-current="page"] span,
+[data-testid="stSidebarNavLink"][aria-current="page"] p {
+    color: #ff6b7a !important;
     font-weight: 700 !important;
 }
-[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.12) !important; }
+
+[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.15) !important; }
 
 /* ── Headings ─────────────────────────────────────────────────────────────── */
 h1 {
@@ -182,12 +220,12 @@ hr { border-color: #e2ddd6 !important; margin: 1.25rem 0 !important; }
     font-weight: 600 !important;
 }
 
-/* ── Selectbox / multiselect ──────────────────────────────────────────────── */
+/* ── Selectbox / multiselect (main content only) ──────────────────────────── */
+/* Sidebar widgets are themed separately above with higher-specificity rules. */
 [data-testid="stSelectbox"] [data-baseweb="select"] > div:first-child,
 [data-testid="stMultiSelect"] [data-baseweb="select"] > div:first-child {
     border-color: #e2ddd6 !important;
     border-radius: 6px !important;
-    background: white !important;
 }
 
 /* ── Caption text ─────────────────────────────────────────────────────────── */
