@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "brand": "BYD × Find Your EV"
+  },
+  "home": {
+    "headline": "Which BYD is made for you?",
+    "sub": "Answer 5 quick questions. We'll match you with your perfect electric ride.",
+    "quiz_mode": "Take the Quiz",
+    "quiz_desc": "Swipe through fun cards — done in under a minute.",
+    "chat_mode": "Chat with Aria",
+    "chat_desc": "Have a conversation with our AI advisor.",
+    "lang_toggle": "ภาษาไทย"
+  },
+  "quiz": {
+    "progress": "Question {n} of {total}",
+    "back": "Back",
+    "q1": {
+      "tag":      "Daily distance",
+      "question": "How far do you drive each day?",
+      "options": {
+        "<20":    "Under 20 km",
+        "20-50":  "20 – 50 km",
+        "50-100": "50 – 100 km",
+        "100+":   "Over 100 km"
+      },
+      "subs": {
+        "<20":    "Short city commute",
+        "20-50":  "Typical Bangkok driver",
+        "50-100": "Cross-district daily run",
+        "100+":   "Long-haul highway"
+      }
+    },
+    "q2": {
+      "tag":      "Age group",
+      "question": "What's your age group?",
+      "options": {
+        "18-24": "18 – 24",
+        "25-34": "25 – 34",
+        "35-54": "35 – 54",
+        "55+":   "55 +"
+      },
+      "subs": {
+        "18-24": "Tech-first, style-driven",
+        "25-34": "Young professional",
+        "35-54": "Family & career focused",
+        "55+":   "Comfort & reliability"
+      }
+    },
+    "q3": {
+      "tag":      "Drive style",
+      "question": "Where do you mostly drive?",
+      "options": {
+        "city":    "City streets",
+        "mixed":   "City + highway",
+        "highway": "Long highways"
+      },
+      "subs": {
+        "city":    "Bangkok traffic, short stops",
+        "mixed":   "Weekdays city, weekends road",
+        "highway": "Cross-province, open roads"
+      }
+    },
+    "q4": {
+      "tag":      "Road trips",
+      "question": "Do you take long weekend road trips?",
+      "options": {
+        "true":  "Yes, often",
+        "false": "Not really"
+      },
+      "subs": {
+        "true":  "Chiang Mai, Hua Hin, Koh Samui...",
+        "false": "I mostly stay near home"
+      }
+    },
+    "q5": {
+      "tag":      "Charging access",
+      "question": "Can you charge at home or work?",
+      "options": {
+        "yes":    "Yes, easy access",
+        "unsure": "Not sure yet",
+        "no":     "No charger nearby"
+      },
+      "subs": {
+        "yes":    "Wall box or plug at home / office",
+        "unsure": "Need to look into options",
+        "no":     "Rely on public chargers only"
+      }
+    },
+    "q6": {
+      "tag":      "Current car",
+      "question": "What does your current car run on?",
+      "sub":      "We'll calculate your exact annual savings.",
+      "options": {
+        "petrol": "Petrol",
+        "diesel": "Diesel",
+        "none":   "No car yet"
+      },
+      "subs": {
+        "petrol": "Most common in Thailand — avg 40 THB/L",
+        "diesel": "SUVs & pickups — avg 33 THB/L",
+        "none":   "First-time buyer — petrol used as baseline"
+      }
+    }
+  },
+  "chat": {
+    "aria_name": "Aria · BYD Advisor",
+    "aria_intro": "Hi, I'm Aria — your personal BYD advisor. I'll match you with the right EV in 6 quick questions.",
+    "thinking": "Aria is thinking...",
+    "q1": "Let's start — how far do you typically drive each day?",
+    "q1_follow": { "<20": "Short commute — a city EV will suit you well.", "20-50": "That's the sweet spot for most EV owners.", "50-100": "Solid daily range — range capacity matters for you.", "100+": "Long-haul driver — let's find the right match." },
+    "q2_prefix": "Good. What's your age group?",
+    "q3_prefix": "Noted. Where do you spend most of your driving time?",
+    "q4_prefix": "Do you take long road trips on weekends?",
+    "q5_prefix": "Nearly there — can you charge at home or at work?",
+    "q6_prefix": "Last one: what does your current car run on? I'll calculate your exact annual savings.",
+    "submit": "Analysing your profile — finding your best match..."
+  },
+  "result": {
+    "match_label": "Your Perfect Match",
+    "type_label": "Powertrain",
+    "price_label": "Starting from",
+    "range_label": "Range",
+    "savings_title": "Your Estimated Annual Savings",
+    "ice_label": "Current car (petrol)",
+    "ev_label": "With BYD",
+    "savings_label": "You save",
+    "co2_label": "CO₂ avoided",
+    "co2_unit": "kg / year",
+    "features_title": "Why you'll love it",
+    "alternatives_title": "Also worth considering",
+    "cta": "View at Rêver Automotive →",
+    "restart": "Start over",
+    "thb": "฿",
+    "km": "km",
+    "per_year": "/ year"
+  },
+  "common": {
+    "loading": "Finding your match...",
+    "error": "Something went wrong. Please try again."
+  }
+}

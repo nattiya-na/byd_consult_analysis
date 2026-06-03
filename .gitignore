@@ -1,0 +1,51 @@
+# ── macOS ──────────────────────────────────────────────────────────────────
+.DS_Store
+__MACOSX/
+
+# ── Python ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+.ipynb_checkpoints/
+
+# ── Raw survey data ─────────────────────────────────────────────────────────
+*.csv
+*.xlsx
+*.xls
+# keep the .env.example but not the real .env
+.env
+
+# ── Interview transcripts (qualitative raw data) ────────────────────────────
+interviews/
+interviews_2/
+all_interviews_raw.txt
+phev_quotes_raw.txt
+
+# ── Generated outputs (reproducible from source) ────────────────────────────
+output/
+
+# ── Large presentation / PDF files ─────────────────────────────────────────
+*.pptx
+*.pdf
+
+# ── Node / frontend ────────────────────────────────────────────────────────
+node_modules/
+**/node_modules/
+dist/
+
+# ── Web crawler artefacts ───────────────────────────────────────────────────
+byd_web_crawler/.env
+byd_web_crawler/.fb_session/
+byd_web_crawler/*.db
+byd_web_crawler/outputs/
+byd_web_crawler/models/
+byd_web_crawler/.venv/
+byd_web_crawler/__pycache__/
+byd_web_crawler/**/__pycache__/
+byd_web_crawler/**/*.py[cod]
+
+# ── Notebooks with large outputs ───────────────────────────────────────────
+survey_analysis.ipynb
+survey_analysis_refactored.ipynb

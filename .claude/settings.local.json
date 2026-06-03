@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 *)",
+      "Read(//Users/macbookpro/miniforge3/**)",
+      "Read(//Users/macbookpro/anaconda3/envs/**)",
+      "Bash(conda env *)",
+      "Bash(conda run *)",
+      "Bash(open *)",
+      "Read(//tmp/**)",
+      "Bash(pip3 show *)",
+      "Bash(pandoc *)",
+      "Bash(pandoc \"/Users/macbookpro/Documents/developments/BYD_survey_analysis/interviews/แนวคำถามสัมภาษณ์ผู้ที่มีแนวโน้มจะซื้อรถ \\(Potential Buyers\\) #3.docx\" -t plain)",
+      "Bash(pandoc \"/Users/macbookpro/Documents/developments/BYD_survey_analysis/interviews_2/Interview 1.docx\" -t plain)",
+      "Bash(pandoc \"/Users/macbookpro/Documents/developments/BYD_survey_analysis/interviews_2/Interview 2.docx\" -t plain)",
+      "Bash(pandoc \"/Users/macbookpro/Documents/developments/BYD_survey_analysis/interviews_2/Interview 3.docx\" -t plain)",
+      "Bash(python -c \"import streamlit; print\\(streamlit.__version__\\)\")",
+      "Bash(pip install *)",
+      "Bash(pip3 install *)",
+      "Bash(pip3 --version)",
+      "Bash(/usr/local/opt/python@3.11/bin/pip3.11 install *)",
+      "Bash(/usr/local/opt/python@3.11/bin/python3.11 -c \"from docx import Document; import streamlit; print\\('OK'\\)\")",
+      "Bash(/usr/local/opt/python@3.11/bin/python3.11 *)",
+      "Skill(update-config)",
+      "Skill(claude-api)",
+      "WebFetch(domain:www.reverautomotive.com)",
+      "WebSearch"
+    ]
+  }
+}

@@ -1,0 +1,426 @@
+[
+  {
+    "id": "dolphin",
+    "name": "BYD DOLPHIN",
+    "type": "BEV",
+    "price_thb": 799000,
+    "range_km": 340,
+    "battery_kwh": 44.9,
+    "acceleration_0_100": 7.5,
+    "power_kw": 70,
+    "seats": 5,
+    "segment": "hatchback",
+    "best_for": ["city", "short_commute", "young_driver"],
+    "daily_km_max": 80,
+    "charging_time_ac_h": 8,
+    "charging_time_dc_min": 30,
+    "image_url": "https://www.reverautomotive.com/uploads/models/dolphin/dolphin-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/dolphin/overview",
+    "features": [
+      "Blade Battery (LFP) — ultra-safe",
+      "V2L vehicle-to-load power output",
+      "10.1\" rotating touchscreen",
+      "ADAS: lane keep, auto emergency brake",
+      "Heat pump for efficient AC"
+    ],
+    "taglines": {
+      "city": {
+        "en": "Made for the streets you own.",
+        "th": "สร้างมาเพื่อเส้นทางที่คุณครอง"
+      },
+      "young": {
+        "en": "Electric. Playful. Completely yours.",
+        "th": "ไฟฟ้า สนุก และเป็นของคุณ"
+      },
+      "default": {
+        "en": "Smart energy. Zero compromise.",
+        "th": "พลังงานฉลาด ไม่มีการประนีประนอม"
+      }
+    }
+  },
+  {
+    "id": "atto-3",
+    "name": "BYD ATTO 3",
+    "type": "BEV",
+    "price_thb": 1099000,
+    "range_km": 480,
+    "battery_kwh": 60.48,
+    "acceleration_0_100": 7.3,
+    "power_kw": 150,
+    "seats": 5,
+    "segment": "suv",
+    "best_for": ["city", "family", "mixed"],
+    "daily_km_max": 120,
+    "charging_time_ac_h": 10,
+    "charging_time_dc_min": 36,
+    "image_url": "https://www.reverautomotive.com/uploads/models/atto3/atto3-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/atto-3/overview",
+    "features": [
+      "Blade Battery — safety-first LFP",
+      "480 km range — worry-free daily driving",
+      "12.8\" rotating infotainment screen",
+      "Premium Dirac audio system",
+      "Flexible boot space 440–1340 L"
+    ],
+    "taglines": {
+      "family": {
+        "en": "Room for everyone. Range for anywhere.",
+        "th": "พื้นที่สำหรับทุกคน พิสัยสำหรับทุกที่"
+      },
+      "city": {
+        "en": "Urban SUV redefined.",
+        "th": "SUV เมืองในแบบที่ไม่เคยมีมาก่อน"
+      },
+      "default": {
+        "en": "Every journey, effortlessly electric.",
+        "th": "ทุกเส้นทาง สะดวกสบายด้วยพลังไฟฟ้า"
+      }
+    }
+  },
+  {
+    "id": "atto-2",
+    "name": "BYD ATTO 2",
+    "type": "BEV",
+    "price_thb": 849000,
+    "range_km": 400,
+    "battery_kwh": 50.0,
+    "acceleration_0_100": 7.9,
+    "power_kw": 130,
+    "seats": 5,
+    "segment": "suv",
+    "best_for": ["city", "young_driver", "first_ev"],
+    "daily_km_max": 100,
+    "charging_time_ac_h": 9,
+    "charging_time_dc_min": 32,
+    "image_url": "https://www.reverautomotive.com/uploads/models/atto2/atto2-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/atto-2/overview",
+    "features": [
+      "Compact SUV with full EV performance",
+      "400 km range — perfect city companion",
+      "Advanced ADAS suite",
+      "Wireless charging pad",
+      "Panoramic sunroof"
+    ],
+    "taglines": {
+      "young": {
+        "en": "Your first electric — and your favorite.",
+        "th": "รถไฟฟ้าคันแรก และคันโปรดของคุณ"
+      },
+      "city": {
+        "en": "Compact outside. Huge inside.",
+        "th": "เล็กภายนอก กว้างภายใน"
+      },
+      "default": {
+        "en": "The smarter commute starts here.",
+        "th": "การเดินทางที่ฉลาดกว่าเริ่มต้นที่นี่"
+      }
+    }
+  },
+  {
+    "id": "atto-1",
+    "name": "BYD ATTO 1",
+    "type": "BEV",
+    "price_thb": 699000,
+    "range_km": 320,
+    "battery_kwh": 38.0,
+    "acceleration_0_100": 9.0,
+    "power_kw": 95,
+    "seats": 5,
+    "segment": "suv",
+    "best_for": ["city", "budget_conscious", "first_ev"],
+    "daily_km_max": 70,
+    "charging_time_ac_h": 7,
+    "charging_time_dc_min": 28,
+    "image_url": "https://www.reverautomotive.com/uploads/models/atto1/atto1-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/atto-1/overview",
+    "features": [
+      "Most affordable BYD EV entry point",
+      "320 km range for city use",
+      "Blade Battery technology",
+      "Comfortable 5-seat interior",
+      "Fast DC charging support"
+    ],
+    "taglines": {
+      "budget": {
+        "en": "Go electric without going all-in.",
+        "th": "เข้าสู่โลกไฟฟ้าในราคาที่คุณเลือกได้"
+      },
+      "default": {
+        "en": "Electric made accessible.",
+        "th": "พลังไฟฟ้าที่ทุกคนเข้าถึงได้"
+      }
+    }
+  },
+  {
+    "id": "seal",
+    "name": "BYD SEAL",
+    "type": "BEV",
+    "price_thb": 1325000,
+    "range_km": 510,
+    "battery_kwh": 61.44,
+    "acceleration_0_100": 5.9,
+    "power_kw": 230,
+    "seats": 5,
+    "segment": "sedan",
+    "best_for": ["highway", "long_range", "performance", "tech_lover"],
+    "daily_km_max": 200,
+    "charging_time_ac_h": 10,
+    "charging_time_dc_min": 30,
+    "image_url": "https://www.reverautomotive.com/uploads/models/seal/seal-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/seal/overview",
+    "features": [
+      "CTB cell-to-body chassis — ultra-rigid",
+      "510–650 km range depending on variant",
+      "15.6\" rotating screen with DILINK",
+      "Silver panoramic glass roof (1.9 m²)",
+      "Full ADAS suite with adaptive cruise",
+      "150 kW DC fast charging"
+    ],
+    "taglines": {
+      "performance": {
+        "en": "Power, precision, and pure silence.",
+        "th": "พลัง ความแม่นยำ และความเงียบที่บริสุทธิ์"
+      },
+      "highway": {
+        "en": "Built for those who go further.",
+        "th": "สร้างมาสำหรับคนที่ไปได้ไกลกว่า"
+      },
+      "default": {
+        "en": "The electric sedan that changes everything.",
+        "th": "รถเก๋งไฟฟ้าที่เปลี่ยนทุกอย่าง"
+      }
+    }
+  },
+  {
+    "id": "seal-6",
+    "name": "BYD SEAL 6",
+    "type": "BEV",
+    "price_thb": 1099000,
+    "range_km": 430,
+    "battery_kwh": 57.6,
+    "acceleration_0_100": 6.7,
+    "power_kw": 190,
+    "seats": 5,
+    "segment": "sedan",
+    "best_for": ["mixed", "highway", "professional"],
+    "daily_km_max": 150,
+    "charging_time_ac_h": 9,
+    "charging_time_dc_min": 32,
+    "image_url": "https://www.reverautomotive.com/uploads/models/seal6/seal6-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/seal-6/overview",
+    "features": [
+      "430 km real-world range",
+      "Sleek aerodynamic sedan design",
+      "Blade Battery safety tech",
+      "Intelligent driving assistant",
+      "Premium interior with ambient lighting"
+    ],
+    "taglines": {
+      "professional": {
+        "en": "Executive presence. Electric efficiency.",
+        "th": "ความเป็นมืออาชีพ ประสิทธิภาพไฟฟ้า"
+      },
+      "default": {
+        "en": "Elegance that never stops.",
+        "th": "ความงามที่ไม่หยุดนิ่ง"
+      }
+    }
+  },
+  {
+    "id": "sealion-7",
+    "name": "BYD SEALION 7",
+    "type": "BEV",
+    "price_thb": 1399000,
+    "range_km": 500,
+    "battery_kwh": 71.8,
+    "acceleration_0_100": 4.5,
+    "power_kw": 310,
+    "seats": 5,
+    "segment": "suv",
+    "best_for": ["family", "highway", "long_trips", "mixed"],
+    "daily_km_max": 200,
+    "charging_time_ac_h": 11,
+    "charging_time_dc_min": 30,
+    "image_url": "https://www.reverautomotive.com/uploads/models/sealion7/sealion7-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/sealion-7/overview",
+    "features": [
+      "500 km long-range BEV SUV",
+      "AWD dual-motor — 4.5s to 100 km/h",
+      "Large panoramic sunroof",
+      "7 airbags, full ADAS",
+      "Spacious boot for family adventures"
+    ],
+    "taglines": {
+      "family": {
+        "en": "Adventure-ready for the whole family.",
+        "th": "พร้อมผจญภัยกับทุกคนในครอบครัว"
+      },
+      "highway": {
+        "en": "500 km. No compromises.",
+        "th": "500 กม. ไม่มีการประนีประนอม"
+      },
+      "default": {
+        "en": "The SUV that sets the standard.",
+        "th": "SUV ที่กำหนดมาตรฐาน"
+      }
+    }
+  },
+  {
+    "id": "m6",
+    "name": "BYD M6",
+    "type": "BEV",
+    "price_thb": 1199000,
+    "range_km": 420,
+    "battery_kwh": 55.0,
+    "acceleration_0_100": 9.5,
+    "power_kw": 135,
+    "seats": 7,
+    "segment": "mpv",
+    "best_for": ["family", "large_family", "city", "mixed"],
+    "daily_km_max": 120,
+    "charging_time_ac_h": 10,
+    "charging_time_dc_min": 35,
+    "image_url": "https://www.reverautomotive.com/uploads/models/m6/m6-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/m6/overview",
+    "features": [
+      "7-seat MPV — most space in class",
+      "420 km range for family travel",
+      "Sliding rear doors for easy access",
+      "Captain seats with massage function",
+      "Family-safe Blade Battery"
+    ],
+    "taglines": {
+      "family": {
+        "en": "Seven seats. One electric heartbeat.",
+        "th": "เจ็ดที่นั่ง หัวใจไฟฟ้าเดียว"
+      },
+      "large_family": {
+        "en": "Built for the family that does everything together.",
+        "th": "สร้างมาสำหรับครอบครัวที่ทำทุกอย่างด้วยกัน"
+      },
+      "default": {
+        "en": "More room. More possibilities.",
+        "th": "พื้นที่มากขึ้น ความเป็นไปได้มากขึ้น"
+      }
+    }
+  },
+  {
+    "id": "seal-5-dmi",
+    "name": "BYD SEAL 5 DM-i",
+    "type": "PHEV",
+    "price_thb": 1199000,
+    "range_km": 1200,
+    "ev_range_km": 100,
+    "battery_kwh": 15.0,
+    "acceleration_0_100": 7.0,
+    "power_kw": 160,
+    "fuel_consumption_l100": 4.5,
+    "seats": 5,
+    "segment": "sedan",
+    "best_for": ["highway", "long_trips", "no_home_charging", "mixed"],
+    "daily_km_max": 500,
+    "charging_time_ac_h": 3,
+    "charging_time_dc_min": null,
+    "image_url": "https://www.reverautomotive.com/uploads/models/seal5dmi/seal5dmi-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/seal-5-dmi/overview",
+    "features": [
+      "100 km pure electric range daily",
+      "1,200 km total range — no range anxiety",
+      "4.5 L/100km fuel efficiency",
+      "DM-i ultra-efficient PHEV system",
+      "Fast AC charging (3 hours to full EV)"
+    ],
+    "taglines": {
+      "highway": {
+        "en": "1,200 km. The open road is yours.",
+        "th": "1,200 กม. ถนนเปิดกว้างรอคุณอยู่"
+      },
+      "long_trips": {
+        "en": "Electric every day. Fuel when you roam.",
+        "th": "ไฟฟ้าทุกวัน น้ำมันเมื่อคุณต้องการ"
+      },
+      "default": {
+        "en": "The best of both worlds.",
+        "th": "ดีที่สุดของทั้งสองโลก"
+      }
+    }
+  },
+  {
+    "id": "sealion-6-dmi",
+    "name": "BYD SEALION 6 DM-i",
+    "type": "PHEV",
+    "price_thb": 1299000,
+    "range_km": 1100,
+    "ev_range_km": 80,
+    "battery_kwh": 11.0,
+    "acceleration_0_100": 7.5,
+    "power_kw": 145,
+    "fuel_consumption_l100": 5.0,
+    "seats": 5,
+    "segment": "suv",
+    "best_for": ["family", "highway", "long_trips", "no_home_charging"],
+    "daily_km_max": 400,
+    "charging_time_ac_h": 2.5,
+    "charging_time_dc_min": null,
+    "image_url": "https://www.reverautomotive.com/uploads/models/sealion6dmi/sealion6dmi-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/sealion-6-dmi/overview",
+    "features": [
+      "80 km daily EV range — no fuel needed in city",
+      "1,100 km total range for road trips",
+      "Family SUV with 5-star safety",
+      "Ultra-low 5L/100km fuel consumption",
+      "Spacious interior for 5 adults"
+    ],
+    "taglines": {
+      "family": {
+        "en": "Family SUV. Infinite range.",
+        "th": "SUV ครอบครัว พิสัยไม่มีที่สิ้นสุด"
+      },
+      "long_trips": {
+        "en": "Weekend trips just got a whole lot easier.",
+        "th": "ทริปวันหยุดง่ายขึ้นมากกว่าที่เคย"
+      },
+      "default": {
+        "en": "Freedom to go anywhere.",
+        "th": "อิสระที่จะไปที่ไหนก็ได้"
+      }
+    }
+  },
+  {
+    "id": "sealion-5-dmi",
+    "name": "BYD SEALION 5 DM-i",
+    "type": "PHEV",
+    "price_thb": 1099000,
+    "range_km": 1000,
+    "ev_range_km": 70,
+    "battery_kwh": 10.0,
+    "acceleration_0_100": 8.0,
+    "power_kw": 130,
+    "fuel_consumption_l100": 5.5,
+    "seats": 5,
+    "segment": "suv",
+    "best_for": ["mixed", "long_trips", "no_home_charging", "highway"],
+    "daily_km_max": 350,
+    "charging_time_ac_h": 2,
+    "charging_time_dc_min": null,
+    "image_url": "https://www.reverautomotive.com/uploads/models/sealion5dmi/sealion5dmi-hero.jpg",
+    "reverautomotive_url": "https://www.reverautomotive.com/en/model/sealion-5-dmi/overview",
+    "features": [
+      "70 km EV range — cover city commutes free",
+      "1,000 km total range — Thailand and beyond",
+      "Compact SUV with flexible boot",
+      "DM-i PHEV — whisper-quiet at city speeds",
+      "Low entry price for PHEV SUV"
+    ],
+    "taglines": {
+      "mixed": {
+        "en": "City by day. Highway by night.",
+        "th": "เมืองในเวลากลางวัน ทางหลวงในยามค่ำคืน"
+      },
+      "default": {
+        "en": "Flexible driving. Fixed savings.",
+        "th": "ขับได้ทุกแบบ ประหยัดได้ทุกวัน"
+      }
+    }
+  }
+]
