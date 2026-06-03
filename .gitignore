@@ -10,10 +10,14 @@ __pycache__/
 *.egg-info/
 .ipynb_checkpoints/
 
-# ── Raw survey data ─────────────────────────────────────────────────────────
+# ── Raw survey data (respondent-identifying) ────────────────────────────────
 *.csv
 *.xlsx
 *.xls
+# Allow public DLT registration data (no personal data)
+!register_car_data/*.csv
+!register_car_data/*.xls
+!register_car_data/*.xlsx
 # keep the .env.example but not the real .env
 .env
 

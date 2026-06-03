@@ -168,6 +168,9 @@ def load_brand_data() -> pd.DataFrame:
         df = df[df["ประเภทรถ"] == CAR_TYPE]
         df = df.groupby(["ปี พ.ศ.", "ประเภทรถ", "ยี่ห้อ", "รุ่น"], as_index=False)["จำนวน"].sum()
         dfs.append(df)
+    if not dfs:
+        return pd.DataFrame(columns=["ปี พ.ศ.", "ประเภทรถ", "ยี่ห้อ", "รุ่น", "จำนวน",
+                                      "year", "brand", "model", "is_phev"])
     df_all = pd.concat(dfs, ignore_index=True)
     df_all["year"] = df_all["ปี พ.ศ."] - 543
     df_all["brand"] = df_all["ยี่ห้อ"].str.strip().str.upper()
@@ -255,6 +258,13 @@ df             = load_brand_data()
 fuel_df        = load_fuel_monthly()
 annual_fuel_df = load_fuel_annual()
 
+if df.empty:
+    st.warning(
+        "Registration data files not found. "
+        "Please ensure the `register_car_data/` directory is committed to the repository."
+    )
+    st.stop()
+
 # ── KPI strip ──────────────────────────────────────────────────────────────────
 yr_totals  = df.groupby("year")["จำนวน"].sum()
 byd_totals = df[df["brand"] == "BYD"].groupby("year")["จำนวน"].sum()
@@ -267,10 +277,12 @@ rank_2025 = (
 )
 growth = (byd_totals.get(2025, 0) - byd_totals.get(2024, 0)) / max(byd_totals.get(2024, 1), 1) * 100
 
+rank_2025_str = f"#{int(rank_2025)}" if rank_2025 is not None else "N/A"
+
 k1, k2, k3, k4, k5 = st.columns(5)
 k1.metric("Total new reg. 2025",    f"{int(yr_totals.get(2025, 0)):,}",  "passenger cars")
 k2.metric("BYD 2025 registrations", f"{int(byd_totals.get(2025, 0)):,}", f"+{growth:.0f}% vs 2024")
-k3.metric("BYD market rank 2025",   f"#{int(rank_2025)}",                "by passenger car volume")
+k3.metric("BYD market rank 2025",   rank_2025_str,                        "by passenger car volume")
 k4.metric("BYD 2022 registrations", f"{int(byd_totals.get(2022, 0)):,}", "market entry")
 k5.metric("BYD growth 2022→2025",   f"{int(byd_totals.get(2025, 0) / max(byd_totals.get(2022, 1), 1)):,}×", "111x in 3 years")
 
@@ -1320,7 +1332,7 @@ with tab6:
     st.dataframe(
         tbl_display.style
             .apply(highlight_brand, axis=1)
-            .applymap(color_growth, subset=["YoY 24→25", "Run-rate vs 25"])
+            .map(color_growth, subset=["YoY 24→25", "Run-rate vs 25"])
             .format({"2024": "{:,}", "2025": "{:,}", "2026 run-rate": "{:,}"}),
         use_container_width=True,
     )
@@ -1712,26 +1724,43 @@ with tab6:
 
     byd_phev_25 = int(phev_df[(phev_df["brand"] == "BYD") & (phev_df["year"] == 2025)]["จำนวน"].sum())
     byd_phev_26 = int(phev_df[(phev_df["brand"] == "BYD") & (phev_df["year"] == 2026)]["จำนวน"].sum())
-    tot_phev_25 = int(phev_by_year.get(2025, 0))
-    tot_phev_26 = int(phev_by_year.get(2026, 0))
     deepal_26   = int(phev_df[(phev_df["brand"] == "DEEPAL") & (phev_df["year"] == 2026)]["จำนวน"].sum())
     jaecoo_26   = int(phev_df[(phev_df["brand"] == "JAECOO") & (phev_df["year"] == 2026)]["จำนวน"].sum())
 
+    # Use fuel-file totals (same source as the chart above) for accurate market sizing.
+    # Keyword detection from brand/model CSVs undercounts because premium PHEVs
+    # (BMW, Mercedes, Volvo, etc.) often omit "PHEV"/"PLUG-IN" from their model names.
+    def _fuel_phev(yr):
+        sub = annual_fuel_df[annual_fuel_df["year"] == yr]
+        return int(sub["PHEV"].values[0]) if len(sub) and "PHEV" in sub.columns else 0
+
+    tot_phev_25_fuel = _fuel_phev(2025)
+    tot_phev_24_fuel = _fuel_phev(2024)
+    phev_growth = tot_phev_25_fuel / max(tot_phev_24_fuel, 1)
+
+    # Jan–Feb 2026 PHEV total from monthly fuel files (matches brand CSV coverage period)
+    _janfeb = fuel_df[fuel_df["month"].isin(["Jan 2026", "Feb 2026"])] if not fuel_df.empty else pd.DataFrame()
+    tot_phev_26_janfeb = int(_janfeb["PHEV"].sum()) if not _janfeb.empty and "PHEV" in _janfeb.columns else 0
+
     p1.success(
-        f"**PHEV exploded in 2025.**\n\n"
-        f"{tot_phev_25:,} PHEV units registered — a **10×** jump vs 2024 (957 units). "
-        "BYD's DM-i launch single-handedly created the modern Thai PHEV market."
+        f"**PHEV market nearly doubled in 2025.**\n\n"
+        f"{tot_phev_25_fuel:,} PHEV units registered — **{phev_growth:.1f}×** vs 2024 "
+        f"({tot_phev_24_fuel:,} units). "
+        "BYD's DM-i entry drove the majority of the segment's growth."
     )
     p2.info(
-        f"**BYD owns 78.6% of PHEV in 2025.**\n\n"
+        f"**BYD leads the affordable PHEV segment.**\n\n"
         "Sealion 6 DM-i Premium (6,309) + DM-i Dynamic (1,465) + Seal 5 DM-i (650) = "
-        f"{byd_phev_25:,} of {tot_phev_25:,} total PHEV units."
+        f"{byd_phev_25:,} BYD units — "
+        f"**{byd_phev_25/max(tot_phev_25_fuel,1)*100:.0f}%** of the {tot_phev_25_fuel:,}-unit total market. "
+        "Premium PHEVs (BMW, Mercedes, Volvo) make up the remaining share."
     )
     p3.warning(
         f"**BYD's PHEV share is under pressure in 2026.**\n\n"
-        f"BYD = {byd_phev_26:,} of {tot_phev_26:,} units ({byd_phev_26/max(tot_phev_26,1)*100:.0f}%) Jan–Feb 2026. "
+        f"BYD = {byd_phev_26:,} of {tot_phev_26_janfeb:,} total PHEV units "
+        f"({byd_phev_26/max(tot_phev_26_janfeb,1)*100:.0f}%) Jan–Feb 2026. "
         f"DEEPAL S05 REEV ({deepal_26:,}) and JAECOO 7 SHS ({jaecoo_26:,}) are entering fast — "
-        "BYD's PHEV monopoly is eroding."
+        "BYD's affordable-PHEV monopoly is eroding."
     )
     p4.warning(
         "**Haval H6 PHEV: the incumbent.**\n\n"
