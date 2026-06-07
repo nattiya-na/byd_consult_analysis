@@ -25,22 +25,6 @@ python run_analysis.py --no-charts
 python dashboard.py
 ```
 
-## Web Crawler (byd_web_crawler/)
-
-A separate sub-project with its own dependencies and CLI:
-
-```bash
-cd byd_web_crawler
-pip install -r requirements.txt
-playwright install chromium  # for Facebook crawler
-
-python main.py crawl pantip
-python main.py crawl youtube
-python main.py crawl all
-python main.py analyze fast
-python main.py analyze viz
-```
-
 ## Interview Extraction
 
 ```bash
@@ -93,13 +77,23 @@ Phase 6 is special: it returns an augmented DataFrame that all later phases depe
 
 Standalone script that re-loads and re-cleans data internally, then builds a single multi-section HTML file at `output/dashboard.html`. Targets IMC strategy segmentation: Gen Z (18–24) BEV vs. Middle Age (35–54) PHEV/REEV personas.
 
-### byd_web_crawler/
-
-Independent sub-project. Uses SQLAlchemy + SQLite (`byd_perception.db`), Playwright for Facebook, YouTube Data API v3, Twitter API v2, and BERTopic + XLM-RoBERTa for Thai NLP sentiment/topic modeling. Config via `.env` (not committed).
-
 ## Notes
 
 - The main survey CSV has a long Thai filename — always reference it via `DATA_PATH` in `run_analysis.py` or the `_CSV` constant in `dashboard.py`.
 - Phase 7 does not exist (left empty in original notebook).
 - Charts render to `output/` by default; the directory is created automatically.
 - `survey_china.xlsx` replaces `survey_china_old.xlsx` — the old file is kept for reference only.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default canonical labels (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context repo — `CONTEXT.md` at root + `docs/adr/`. See `docs/agents/domain.md`.
