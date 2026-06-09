@@ -1332,7 +1332,7 @@ with tab6:
     st.dataframe(
         tbl_display.style
             .apply(highlight_brand, axis=1)
-            .map(color_growth, subset=["YoY 24→25", "Run-rate vs 25"])
+            .applymap(color_growth, subset=["YoY 24→25", "Run-rate vs 25"])
             .format({"2024": "{:,}", "2025": "{:,}", "2026 run-rate": "{:,}"}),
         use_container_width=True,
     )

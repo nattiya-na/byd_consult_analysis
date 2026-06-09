@@ -20,7 +20,7 @@ import seaborn as sns
 from survey_utils import load_data, clean_survey
 from phase2_customer_profile import run_phase2
 from phase3_powertrain_prefs import run_phase3
-from phase4_purchase_factors import run_phase4, run_phase4b
+from phase4_purchase_factors import run_phase4, run_phase4b, run_phase4c
 from phase5_motor_show import run_phase5
 from phase6_feature_engineering import run_phase6
 from phase8_barriers_motivation import run_phase8
@@ -154,6 +154,7 @@ def main():
         run(3, run_phase3, df_plot, AGE_ORDER, INCOME_ORDER)
         run(4, run_phase4, df_plot)
         run(4, run_phase4b, df_plot)
+        run(4, run_phase4c, df_plot, AGE_ORDER)
         run(5, run_phase5, df_plot, AGE_ORDER, INCOME_ORDER)
 
         if 6 in wanted:

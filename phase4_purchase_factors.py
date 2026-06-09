@@ -7,6 +7,35 @@ from plotly.subplots import make_subplots
 
 from survey_utils import thai_layout, barh_counts, split_multiselect
 
+_MI_BONUS = 5.0
+_RANK_WEIGHTS = (3.0, 2.0, 1.0)
+
+
+def _importance_weights(df_plot: pd.DataFrame) -> pd.DataFrame:
+    """Per-respondent self-explicated importance (%).
+
+    Returns a wide DataFrame — rows = valid respondents (original index),
+    columns = factor labels, values = normalised importance %.
+    """
+    rows, idx = [], []
+    for i, row in df_plot.iterrows():
+        mi = row.get("purchase_factor_most_important")
+        if pd.isna(mi) or str(mi).strip() == "":
+            continue
+        mi = str(mi).strip()
+        tokens = split_multiselect(row.get("purchase_factors_top3"))[:3]
+        scores: dict[str, float] = {}
+        for j, tok in enumerate(tokens):
+            if tok:
+                scores[tok] = scores.get(tok, 0.0) + _RANK_WEIGHTS[j]
+        scores[mi] = scores.get(mi, 0.0) + _MI_BONUS
+        total = sum(scores.values())
+        if total <= 0:
+            continue
+        rows.append({k: (v / total) * 100.0 for k, v in scores.items()})
+        idx.append(i)
+    return pd.DataFrame(rows, index=idx).fillna(0.0)
+
 
 def run_phase4(df_plot):
     pf = (
@@ -96,42 +125,12 @@ def run_phase4(df_plot):
 
 def run_phase4b(df_plot):
     """Self-explicated feature importance derived from top-3 order + most important."""
-    MI_BONUS = 5.0
-    RANK_WEIGHTS = (3.0, 2.0, 1.0)
-
-    def _raw_importance_row(row):
-        mi = row.get("purchase_factor_most_important")
-        if pd.isna(mi) or str(mi).strip() == "":
-            return None
-        mi = str(mi).strip()
-        tokens = split_multiselect(row.get("purchase_factors_top3"))[:3]
-        scores = {}
-        for i, tok in enumerate(tokens):
-            if not tok:
-                continue
-            scores[tok] = scores.get(tok, 0.0) + RANK_WEIGHTS[i]
-        scores[mi] = scores.get(mi, 0.0) + MI_BONUS
-        total = sum(scores.values())
-        if total <= 0:
-            return None
-        return {k: (v / total) * 100.0 for k, v in scores.items()}
-
-    _rows = []
-    _idx = []
-    for i, row in df_plot.iterrows():
-        d = _raw_importance_row(row)
-        if d is None:
-            continue
-        _rows.append(d)
-        _idx.append(i)
-
-    if not _rows:
+    se_wide = _importance_weights(df_plot)
+    if se_wide.empty:
         raise RuntimeError(
             "Phase 4b: no respondents with non-empty importance weights. "
             "Check purchase_factor_most_important / purchase_factors_top3."
         )
-
-    se_wide = pd.DataFrame(_rows, index=_idx).fillna(0.0)
     n_se = len(se_wide)
     print(f"Phase 4b: n = {n_se} respondents (non-null most important + positive weight).")
     print(
@@ -165,9 +164,112 @@ def run_phase4b(df_plot):
     fig.update_layout(
         title=(
             f"Self-explicated mean importance (%) — top-3 ranks 3/2/1 + "
-            f"{MI_BONUS:g} to most important (n={n_se})"
+            f"{_MI_BONUS:g} to most important (n={n_se})"
         ),
         xaxis_title="Mean importance (%)", yaxis_title="",
     )
     thai_layout(fig, height=max(360, min(1200, 80 + 22 * max(1, _n))), width=800)
     fig.show()
+
+
+def run_phase4c(df_plot, age_order):
+    """Purchase factor importance cross-tabulated by age group.
+
+    Chart 1: heatmap — mean importance (%) per age × factor cell.
+    Chart 2: deviation bars — how each age group differs from the overall mean
+             (highlights which factors are age-distinctive).
+    """
+    se_wide = _importance_weights(df_plot)
+    if se_wide.empty:
+        print("Phase 4c: no valid respondents — skipping.")
+        return
+
+    se_age = se_wide.join(df_plot["age_range"], how="left")
+    se_age = se_age[se_age["age_range"].notna()]
+    factor_cols = [c for c in se_age.columns if c != "age_range"]
+
+    age_mean = se_age.groupby("age_range")[factor_cols].mean()
+    age_n = se_age.groupby("age_range").size().rename("n")
+
+    valid_ages = [a for a in age_order if a in age_mean.index]
+    age_mean = age_mean.loc[valid_ages]
+
+    # Sort factors by overall mean descending so the most important appear first
+    overall_mean = age_mean.mean(axis=0).sort_values(ascending=False)
+    factors_sorted = overall_mean.index.tolist()
+    age_mean = age_mean[factors_sorted]
+
+    n_total = len(se_age)
+
+    # ── Chart 1: heatmap age × factor ─────────────────────────────────────────
+    z = age_mean.values
+    y_labels = [f"{a} (n={age_n.get(a, 0)})" for a in valid_ages]
+    x_labels = [str(f) for f in factors_sorted]
+
+    annotations = []
+    for row_i, age_lbl in enumerate(y_labels):
+        for col_j, factor_lbl in enumerate(x_labels):
+            annotations.append(
+                dict(
+                    x=factor_lbl, y=age_lbl,
+                    text=f"{z[row_i, col_j]:.1f}",
+                    showarrow=False,
+                    font=dict(size=10, color="black"),
+                    xref="x", yref="y",
+                )
+            )
+
+    fig1 = go.Figure(
+        go.Heatmap(
+            z=z,
+            x=x_labels,
+            y=y_labels,
+            colorscale="RdYlGn",
+            colorbar=dict(title="Mean importance (%)"),
+            hovertemplate="Age: %{y}<br>Factor: %{x}<br>Importance: %{z:.1f}%<extra></extra>",
+        )
+    )
+    fig1.update_layout(annotations=annotations)
+    fig1.update_layout(
+        title=f"Purchase factor importance by age group — mean self-explicated % (n={n_total})",
+        xaxis_title="Purchase factor",
+        yaxis_title="Age range",
+        xaxis=dict(tickangle=-35),
+    )
+    thai_layout(fig1, height=max(320, 80 + 50 * len(valid_ages)), width=1100)
+    fig1.show()
+
+    # ── Chart 2: deviation from overall mean (top 10 factors) ────────────────
+    top_factors = factors_sorted[:10]
+    deviation = age_mean[top_factors].sub(overall_mean[top_factors], axis=1)
+
+    palette = plc.qualitative.Set2
+    fig2 = go.Figure()
+    for i, age in enumerate(valid_ages):
+        row_dev = deviation.loc[age]
+        fig2.add_trace(
+            go.Bar(
+                name=age,
+                x=[str(f) for f in top_factors],
+                y=row_dev.values.tolist(),
+                marker_color=palette[i % len(palette)],
+                hovertemplate=f"Age: {age}<br>Factor: %{{x}}<br>Δ vs mean: %{{y:.1f}} pp<extra></extra>",
+            )
+        )
+    fig2.add_shape(
+        type="line", x0=0, x1=1, xref="paper", y0=0, y1=0,
+        line=dict(dash="dot", color="gray", width=1),
+    )
+    fig2.update_layout(
+        title=(
+            f"Age-group deviation from overall mean importance — top {len(top_factors)} factors "
+            f"(positive = above average priority for that age group)"
+        ),
+        xaxis_title="Purchase factor",
+        yaxis_title="Deviation from overall mean (pp)",
+        barmode="group",
+        legend_title="Age range",
+        xaxis=dict(tickangle=-30),
+    )
+    thai_layout(fig2, height=520, width=1100)
+    fig2.show()

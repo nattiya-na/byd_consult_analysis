@@ -10,7 +10,7 @@ import streamlit as st
 
 from utils.interview_data import (
     PROFILES, PERSONAS, BARRIERS_TABLE, THEMES, RECOMMENDATIONS,
-    get_theme_quotes, load_all_raw_quotes,
+    COHORT_QUOTES, get_theme_quotes, load_all_raw_quotes,
 )
 from utils.sales_interview_data import (
     SALES_PROFILES, SALES_THEMES, LOST_SALES_REASONS, load_sales_pdf_text,
@@ -27,13 +27,14 @@ page_header(
 SEVERITY_ICON = {"Critical": "🔴", "High": "🟠", "Moderate": "🟡"}
 
 # ══════════════════════════════════════════════════════════════════════════════
-tab_profiles, tab_personas, tab_themes, tab_barriers, tab_recs, tab_sales = st.tabs([
+tab_profiles, tab_personas, tab_themes, tab_barriers, tab_recs, tab_sales, tab_age = st.tabs([
     "Respondent Profiles",
     "Four Personas",
     "Theme Browser",
     "Barriers Heatmap",
     "Strategic Recommendations",
     "Sales Staff Insights",
+    "Voices by Age",
 ])
 
 # ── Respondent Profiles ────────────────────────────────────────────────────────
@@ -386,3 +387,115 @@ with tab_sales:
                 )
             else:
                 st.info("No sufficiently long English passages found for this interview section.")
+
+# ── Voices by Age ──────────────────────────────────────────────────────────────
+with tab_age:
+    st.subheader("Interview voices — curated by age cohort")
+    st.caption(
+        "18 respondents with usable answers across cohorts (25–34, 35–44, 45–54). "
+        "No 18–24 or 55+ respondents in the interview sample. "
+        "Quotes selected to illustrate purchase factor patterns from the quantitative cross-tab (Phase 4c)."
+    )
+
+    _QUOTE_STYLE = (
+        "border-left:4px solid {color};padding:10px 16px;margin:8px 0;"
+        "background:#FAFBFD;border-radius:0 6px 6px 0;"
+    )
+    _SLIDE_QUOTE_STYLE = (
+        "border-left:4px solid {color};padding:10px 16px;margin:8px 0;"
+        "background:#F0F7FF;border-radius:0 6px 6px 0;"
+        "box-shadow:0 1px 4px rgba(0,0,0,0.08);"
+    )
+
+    cohort_keys = list(COHORT_QUOTES.keys())
+    cohort_tabs = st.tabs([f"Age {k}" for k in cohort_keys])
+
+    for cohort_tab, cohort_key in zip(cohort_tabs, cohort_keys):
+        cohort = COHORT_QUOTES[cohort_key]
+        color = cohort["color"]
+
+        with cohort_tab:
+            # Header row
+            col_left, col_right = st.columns([3, 2])
+            with col_left:
+                st.markdown(f"**{cohort['respondents']}**")
+                st.markdown(
+                    f"**Dominant purchase factors:** "
+                    + " · ".join(f"`{f}`" for f in cohort["dominant_factors"])
+                )
+            with col_right:
+                st.info(cohort["key_insight"])
+
+            st.divider()
+
+            # Themes
+            st.markdown("#### Themes from the interviews")
+            for theme in cohort["themes"]:
+                with st.expander(f"**{theme['title']}**", expanded=False):
+                    for q in theme["quotes"]:
+                        meta = f"Respondent #{q['id']} · Age {q['age']} · {'Male' if q['gender'] == 'M' else 'Female'}"
+                        st.markdown(
+                            f'<div style="{_QUOTE_STYLE.format(color=color)}">'
+                            f'<em style="color:#1A1A2E;font-size:0.97em">"{q["text"]}"</em>'
+                            f'<br><small style="color:#6B7280;margin-top:4px;display:block">{meta}</small>'
+                            f'</div>',
+                            unsafe_allow_html=True,
+                        )
+
+            st.divider()
+
+            # Slide-ready quotes
+            st.markdown("#### Recommended quotes for the report slide")
+            st.caption("Selected for clarity, specificity, and maximum contrast with other cohorts.")
+            for q in cohort["slide_quotes"]:
+                meta = f"Respondent #{q['id']} · Age {q['age']} · {'Male' if q['gender'] == 'M' else 'Female'}"
+                st.markdown(
+                    f'<div style="{_SLIDE_QUOTE_STYLE.format(color=color)}">'
+                    f'<em style="color:#1A1A2E;font-size:1.0em">"{q["text"]}"</em>'
+                    f'<br><small style="color:#6B7280;margin-top:4px;display:block">{meta}</small>'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
+
+    # Cross-cohort comparison table
+    st.divider()
+    st.markdown("#### Cross-cohort comparison")
+    comparison = {
+        "Theme": [
+            "#1 purchase factor",
+            "Technology interest",
+            "PHEV awareness",
+            "BYD awareness",
+            "Charging anxiety",
+            "Price cut reaction",
+            "Key conversion trigger",
+        ],
+        "25–34 (n=12)": [
+            "Running cost + price",
+            "High — spec-comparison enjoyment",
+            "Low but educatable",
+            "Strong — owned or cross-shopped",
+            "Public etiquette (not infra)",
+            "Frustration (existing owners)",
+            "Charging ecosystem + tech features",
+        ],
+        "35–44 (n=3)": [
+            "After-sales service",
+            "Moderate — features matter",
+            "Near-zero — confused with HEV",
+            "Moderate — tech respected, design gap",
+            "Home install cost",
+            "Caution — wait-and-see",
+            "Free wall charger + service proof",
+        ],
+        "45–54 (n=2)": [
+            "Economy + service",
+            "Low — proven tech only",
+            "Zero",
+            "Exists as 'EV brand' only",
+            "Infra + station congestion",
+            "Strong distrust",
+            "Brand longevity proof + stable pricing",
+        ],
+    }
+    st.dataframe(pd.DataFrame(comparison), use_container_width=True, hide_index=True)

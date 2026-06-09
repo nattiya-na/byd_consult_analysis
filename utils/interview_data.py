@@ -305,6 +305,150 @@ def load_all_raw_quotes() -> dict[int, list[str]]:
     return quotes
 
 
+# ── Curated quotes by age cohort (for Slide 11 / "Voices by Age" tab) ────────
+
+COHORT_QUOTES: dict[str, dict] = {
+    "25–34": {
+        "label": "25–34",
+        "respondents": "n=12 · First/second car buyers · Higher EV openness",
+        "profile_ids": [1, 3, 5, 8, 9, 10, 11, 12, 13, 16, 17, 18, 19],
+        "color": "#2E86AB",
+        "dominant_factors": ["Running cost", "Purchase price", "Technology / features"],
+        "key_insight": "Running cost and technology dominate. Charging anxiety is behavioural — they worry about public station etiquette, not the infrastructure itself. After-sales quality (not coverage) is an emerging concern even at this age.",
+        "themes": [
+            {
+                "title": "Running cost + TCO dominate, but design is the entry gate",
+                "quotes": [
+                    {"text": "A car is like an identity — choosing a car is like choosing what you wear. It has to look luxurious, cool, and understated.", "id": 5, "age": 26, "gender": "M"},
+                    {"text": "I think everyone just wants the cheapest way of transportation. That's the problem because everything is expensive now, making everyone price-sensitive.", "id": 13, "age": 28, "gender": "M"},
+                    {"text": "Charging isn't convenient or inconvenient — it's just necessary.", "id": 5, "age": 26, "gender": "M"},
+                ],
+            },
+            {
+                "title": "EV timing anxiety: buying too early feels like a losing bet",
+                "quotes": [
+                    {"text": "Buying an early-generation EV is like buying an iPhone 4 knowing that iPhone 10 is coming soon. It's not that the product is bad — it's that you know something much better is almost here.", "id": 13, "age": 28, "gender": "M"},
+                    {"text": "EV ownership feels somewhat similar to investing in stocks, as technology changes very quickly. There is concern that newer technologies may rapidly replace existing ones, causing vehicle values to fluctuate significantly.", "id": 16, "age": 34, "gender": "F"},
+                ],
+            },
+            {
+                "title": "After-sales anxiety — quality, not coverage",
+                "quotes": [
+                    {"text": "If I had to pick one thing between fun-to-drive and after-sales, I'd choose after-sales first right now.", "id": 1, "age": 26, "gender": "M"},
+                    {"text": "Electric cars sell well, but the after-sales service is terrible after purchase — it gives you the feeling of 'you are on your own' once you've bought it.", "id": 13, "age": 28, "gender": "M"},
+                    {"text": "They took my car in for maintenance and scratched the entire body with a dry waxing cloth. That's what I'm most dissatisfied with — the service, not the car itself.", "id": 1, "age": 26, "gender": "M"},
+                ],
+            },
+            {
+                "title": "BYD is known and considered; design and service consistency are the gaps",
+                "quotes": [
+                    {"text": "She views BYD as one of the strongest EV brands technologically — the 'Toyota or Honda' of EVs. She perceives Toyota and Honda as leaders in ICE vehicles, while BYD leads on EV.", "id": 19, "age": 30, "gender": "F"},
+                    {"text": "BYD is for people who want an EV but don't have a lot of money. Tesla is more premium — for people with more.", "id": 13, "age": 28, "gender": "M"},
+                    {"text": "I'm about 60–80% confident using public charging stations. The problem isn't the station — someone parks in your reserved spot and you can't charge.", "id": 1, "age": 26, "gender": "M"},
+                ],
+            },
+        ],
+        "slide_quotes": [
+            {"text": "A car is like an identity — choosing a car is like choosing what you wear.", "id": 5, "age": 26, "gender": "M"},
+            {"text": "Buying an early-generation EV is like buying an iPhone 4 knowing iPhone 10 is coming soon.", "id": 13, "age": 28, "gender": "M"},
+            {"text": "Electric cars sell well, but the after-sales service is terrible — you feel 'on your own' once you've bought it.", "id": 13, "age": 28, "gender": "M"},
+        ],
+    },
+    "35–44": {
+        "label": "35–44",
+        "respondents": "n=3 · Established working adults · Replacing Japanese HEV or ICE",
+        "profile_ids": [7, 14, 15],
+        "color": "#A23B72",
+        "dominant_factors": ["After-sales service", "Running cost", "Brand trust"],
+        "key_insight": "After-sales has become the primary filter, not a secondary concern. PHEV awareness is near-zero and consistently confused with HEV — significant education investment required before consideration is possible. Free wall charger installation is the single clearest PHEV conversion trigger.",
+        "themes": [
+            {
+                "title": "After-sales is the first decision filter, not the last",
+                "quotes": [
+                    {"text": "Service centers and after-sales — that's the deal breaker. Toyota has strong coverage, easy access, available nationwide. Since I keep a car for over 5 years, after-sales support is the most important factor.", "id": 15, "age": 42, "gender": "M"},
+                    {"text": "The biggest deal breaker is long-term maintenance cost, especially after the warranty ends. Expensive spare parts and servicing costs are a major concern. My previous Mazda's maintenance costs were almost comparable to a luxury car.", "id": 14, "age": 38, "gender": "F"},
+                    {"text": "My partner's brother's EV was hit by a bus and the battery detached. Insurance initially only offered 200,000 THB on an 800,000 THB car. He had to go public on social media to get 750,000 THB. That experience reinforced every concern I had about EV after-sales.", "id": 16, "age": 34, "gender": "F"},
+                ],
+            },
+            {
+                "title": "PHEV is genuinely unknown — the education gap is the marketing opportunity",
+                "quotes": [
+                    {"text": "I had never heard of PHEV before this conversation.", "id": 14, "age": 38, "gender": "F"},
+                    {"text": "PHEV feels like a middle-ground solution with no clear advantage. With BEV you know charging is necessary, so you plan for it. PHEV just sits in the middle.", "id": 15, "age": 42, "gender": "M"},
+                    {"text": "People who drive PHEVs tend to live in townhouses. If they were really wealthy, they'd go full BEV instead.", "id": 15, "age": 42, "gender": "M"},
+                ],
+            },
+            {
+                "title": "The PHEV conversion trigger: free wall charger, no conditions",
+                "quotes": [
+                    {"text": "A free wall charger installation with no conditions would significantly increase my interest in a PHEV. Without it, there's the wiring upgrade, electricity authority coordination, installation — it adds up to 20–30k THB and feels complicated.", "id": 15, "age": 42, "gender": "M"},
+                    {"text": "To increase confidence in choosing a PHEV, brands should emphasise convenience and flexibility — electricity for city driving, fuel for long distance.", "id": 14, "age": 38, "gender": "F"},
+                ],
+            },
+            {
+                "title": "Chinese brands respected for tech; BYD loses on design, not trust",
+                "quotes": [
+                    {"text": "Chinese brands stand out in technology and features. They offer more features even in entry-level models, whereas Japanese brands usually reserve them for top-tier models.", "id": 15, "age": 42, "gender": "M"},
+                    {"text": "Is BYD in your consideration set? No — mainly due to design.", "id": 15, "age": 42, "gender": "M"},
+                ],
+            },
+        ],
+        "slide_quotes": [
+            {"text": "Service centers and after-sales — that's the deal breaker. Toyota has strong coverage nationwide. Since I keep a car for over 5 years, after-sales is the most important factor.", "id": 15, "age": 42, "gender": "M"},
+            {"text": "I had never heard of PHEV before this conversation.", "id": 14, "age": 38, "gender": "F"},
+            {"text": "A free wall charger with no conditions would significantly increase my interest in a PHEV.", "id": 15, "age": 42, "gender": "M"},
+        ],
+    },
+    "45–54": {
+        "label": "45–54",
+        "respondents": "n=2 · Loyal to established brands · Either/or powertrain thinkers",
+        "profile_ids": [4, 6],
+        "color": "#F18F01",
+        "dominant_factors": ["After-sales service", "Brand trust", "Long-term cost"],
+        "key_insight": "Either/or logic on powertrain — they want pure ICE or pure EV, not hybrid middle-grounds. PHEV awareness is effectively zero. Price stability and brand longevity are non-negotiable. BYD is known only as an EV brand; PHEV products are completely invisible to this cohort.",
+        "themes": [
+            {
+                "title": "Either/or powertrain logic — no middle ground",
+                "quotes": [
+                    {"text": "If I'm going hybrid, I want pure hybrid. If I'm going electric, I want pure electric. I don't want both oil and electricity combined.", "id": 4, "age": 47, "gender": "M"},
+                    {"text": "Between BEV and PHEV: I'd choose BEV. Because safety — you charge electricity immediately, no need to worry about combining both fuel and electricity.", "id": 4, "age": 47, "gender": "M"},
+                    {"text": "I don't know what PHEV is. I don't know how it's different.", "id": 6, "age": 50, "gender": "F"},
+                ],
+            },
+            {
+                "title": "Price stability is a trust signal, not just economics",
+                "quotes": [
+                    {"text": "If the car I bought keeps dropping in price, making me lose money — that's unreliable.", "id": 4, "age": 47, "gender": "M"},
+                    {"text": "NETA? Their company disappeared completely, and the price was never stable — went from expensive to falling fast. That's exactly what I'm not confident about.", "id": 4, "age": 47, "gender": "M"},
+                    {"text": "EV prices are getting cheaper — but that's also not a standard. It's not reliable.", "id": 6, "age": 50, "gender": "F"},
+                ],
+            },
+            {
+                "title": "Service network is the first decision filter",
+                "quotes": [
+                    {"text": "The service center is the deal breaker.", "id": 4, "age": 47, "gender": "M"},
+                    {"text": "For combustion cars, any mechanic can fix them. For plug-in hybrids and EVs in Thailand — I don't think there are enough service centers yet.", "id": 4, "age": 47, "gender": "M"},
+                    {"text": "Chinese brands? Reliability of vehicle longevity, and there aren't enough maintenance centers yet.", "id": 6, "age": 50, "gender": "F"},
+                ],
+            },
+            {
+                "title": "BYD known as EV-only — PHEV products are invisible",
+                "quotes": [
+                    {"text": "BYD? I don't know they have PHEV cars. But I think most people don't know either — they probably only know that BYD is all-electric.", "id": 4, "age": 47, "gender": "M"},
+                    {"text": "BYD? Electric car.", "id": 6, "age": 50, "gender": "F"},
+                    {"text": "Is BYD in your consideration set? No.", "id": 6, "age": 50, "gender": "F"},
+                ],
+            },
+        ],
+        "slide_quotes": [
+            {"text": "If I'm going hybrid, I want pure hybrid. If I'm going electric, I want pure electric. I don't want both combined.", "id": 4, "age": 47, "gender": "M"},
+            {"text": "BYD? I don't know they have PHEV cars. Most people probably don't know either — they only know BYD is all-electric.", "id": 4, "age": 47, "gender": "M"},
+            {"text": "Chinese brands? Reliability of vehicle longevity, and there aren't enough maintenance centers yet.", "id": 6, "age": 50, "gender": "F"},
+        ],
+    },
+}
+
+
 def get_theme_quotes(theme_key: str) -> list[dict]:
     """Return quotes for a given theme key, enriched with profile info."""
     theme = THEMES.get(theme_key, {})

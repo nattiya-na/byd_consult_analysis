@@ -28,9 +28,11 @@ profiles_by_id = {p["id"]: p for p in PROFILES}
 
 SEVERITY_COLOR = {"Critical": "#BC4749", "High": "#F18F01", "Moderate": "#6A994E"}
 
+SEVERITY_EMOJI = {"Critical": "🔴", "High": "🟠", "Moderate": "🟡"}
+
 def severity_badge(s: str) -> str:
-    color = SEVERITY_COLOR.get(s, "#888")
-    return f'<span style="background:{color};color:white;padding:2px 8px;border-radius:4px;font-size:0.8em">{s}</span>'
+    emoji = SEVERITY_EMOJI.get(s, "⚪")
+    return f"{emoji} {s}"
 
 def render_quote(q: dict) -> None:
     prof = profiles_by_id.get(q["id"], {})
@@ -63,8 +65,7 @@ with st.expander(f"🔧 After-Sales Service Quality  {severity_badge('Critical')
             x=vc_b.values[::-1], y=vc_b.index[::-1].tolist(),
             orientation="h", marker_color="#BC4749",
         ))
-        fig_b.update_layout(**LAYOUT_BASE, title="Top EV barriers (survey)", height=300,
-                            margin=dict(l=10, r=10, t=40, b=10))
+        fig_b.update_layout(**LAYOUT_BASE, title="Top EV barriers (survey)", height=300)
         st.plotly_chart(fig_b, use_container_width=True)
 
     with col2:
@@ -85,8 +86,7 @@ with st.expander(f"⚡ Charging Infrastructure & Range Anxiety  {severity_badge(
             x=chg_vc.values, y=[s[:40] for s in chg_vc.index.tolist()],
             orientation="h", marker_color="#2E86AB",
         ))
-        fig_chg.update_layout(**LAYOUT_BASE, title="Charging convenience (survey)", height=300,
-                              margin=dict(l=10, r=10, t=40, b=10))
+        fig_chg.update_layout(**LAYOUT_BASE, title="Charging convenience (survey)", height=300)
         st.plotly_chart(fig_chg, use_container_width=True)
 
         ev_ri_by_chg = df.groupby(
@@ -120,8 +120,7 @@ with st.expander(f"🎨 Interior Design as Deal-Breaker  {severity_badge('Critic
             x=vc_pf.values[::-1], y=vc_pf.index[::-1].tolist(),
             orientation="h", marker_color="#F18F01",
         ))
-        fig_pf.update_layout(**LAYOUT_BASE, title="Top purchase factors (survey)", height=360,
-                             margin=dict(l=10, r=10, t=40, b=10))
+        fig_pf.update_layout(**LAYOUT_BASE, title="Top purchase factors (survey)", height=360)
         st.plotly_chart(fig_pf, use_container_width=True)
 
     with col2:
@@ -150,8 +149,7 @@ with st.expander(f"📉 Price Depreciation Erodes Trust  {severity_badge('Critic
             x=budget_vc.values[::-1], y=[s[:35] for s in budget_vc.index[::-1].tolist()],
             orientation="h", marker_color="#A23B72",
         ))
-        fig_budget.update_layout(**LAYOUT_BASE, title="Budget range distribution", height=300,
-                                 margin=dict(l=10, r=10, t=40, b=10))
+        fig_budget.update_layout(**LAYOUT_BASE, title="Budget range distribution", height=300)
         st.plotly_chart(fig_budget, use_container_width=True)
 
     with col2:

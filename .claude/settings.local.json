@@ -24,7 +24,10 @@
       "Skill(update-config)",
       "Skill(claude-api)",
       "WebFetch(domain:www.reverautomotive.com)",
-      "WebSearch"
+      "WebSearch",
+      "mcp__claude_ai_Canva__list-brand-kits",
+      "mcp__claude_ai_Canva__request-outline-review",
+      "mcp__claude_ai_Canva__generate-design-structured"
     ]
   }
 }
